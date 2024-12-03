@@ -22,13 +22,13 @@ class Homepage {
                                                                               "Y88P"                     "Y88P"                                        
         """);
         print('\n');
-        print("                   (1) => add book");
-        print("                   (2) => search by book title");
-        print("                   (3) => search by book author");
-        print("                   (4) => search by book isbm");
-        print("                   (5) => remove book");
-        print("                   (6) => update  book status");
-        print("                   (7) => Exit");
+        print("\t\t\t\t\t\t\t\t\t\t(1) => add book");
+        print("\t\t\t\t\t\t\t\t\t\t(2) => search by book title");
+        print("\t\t\t\t\t\t\t\t\t\t(3) => search by book author");
+        print("\t\t\t\t\t\t\t\t\t\t(4) => search by book isbm");
+        print("\t\t\t\t\t\t\t\t\t\t(5) => remove book");
+        print("\t\t\t\t\t\t\t\t\t\t(6) => update  book status");
+        print("\t\t\t\t\t\t\t\t\t\t(7) => Exit");
         print('\n');
 
         stdout.write("                    Choose an option(1-7) : ");
@@ -37,12 +37,12 @@ class Homepage {
         switch (option) {
           case "1":bookManagement.addBook();
           case "2":bookManagement.searchByTitle();
-          // case "3":bookManagement.searchByAuthor();
+          case "3":bookManagement.searchByAuthor();
           case "4":bookManagement.searchByISBM();
           case "5":bookManagement.removeBook();
           case "6":bookManagement.updateBookStatus();
           case "7":exit(0);
-          default: print("\n                   Invalid option. Please enter a number between 1 and 7.");
+          default: print("\n\t\t\t\t\t\t\t\t\t\tInvalid option. Please enter a number between 1 and 7.");
         }
       }
   }
@@ -101,25 +101,29 @@ class BookManagement {
 
   void addBook() {
 
-    stdout.write("\n                    Enter Title : ");
+    stdout.write("\n\t\t\t\t\t\t\t\t\t\tEnter Title : ");
     String? title = stdin.readLineSync();
 
-    stdout.write("                    Enter Author : ");
+    stdout.write("\t\t\t\t\t\t\t\t\t\tEnter Author : ");
     String? author = stdin.readLineSync();
 
-    stdout.write("                    Enter ISBM : ");
+    stdout.write("\t\t\t\t\t\t\t\t\t\tEnter ISBM : ");
     String? iSBM = stdin.readLineSync();
 
     if(title != null && title != '' && author != null && author != ''){
+        var upperCaseAuthor = author.toUpperCase();
+        var upperCaseTitle = title.toUpperCase();
+
+
       if(isValidISBM(iSBM)){
-        Book book = Book(title, author, iSBM!);
+        Book book = Book(upperCaseTitle, upperCaseAuthor, iSBM!);
         books.add(book);
         print(book.toString());
       }else{
-        print('\n                   The ISBM number must contain 13 digits. Try Again!...');
+        print('\n\t\t\t\t\t\t\t\t\t\tThe ISBM number must contain 13 digits. Try Again!...');
       }
     }else{
-      print('\n                   Enter value try again!...');
+      print('\n\t\t\t\t\t\t\t\t\t\tEnter value try again!...');
     }
 
 
@@ -139,7 +143,7 @@ class BookManagement {
   }
   Book? searchByISBM() {
 
-    stdout.write("\n                   Please enter the valid ISBN number : ");
+    stdout.write("\n\t\t\t\t\t\t\t\t\t\tPlease enter the valid ISBN number : ");
     String? iSBM = stdin.readLineSync();
 
     if(iSBM != null && iSBM != '' && isValidISBM(iSBM)){
@@ -151,17 +155,17 @@ class BookManagement {
             String  author = value._author;
             String  isbm = value._iSBM;
 
-            print("\n                   Title  : $title.");
-            print("                   Author : $author");
-            print("                   ISBM   : $isbm");
+            print("\n\t\t\t\t\t\t\t\t\t\tTitle  : $title");
+            print("\t\t\t\t\t\t\t\t\t\tAuthor : $author");
+            print("\t\t\t\t\t\t\t\t\t\tISBM   : $isbm");
 
             return value;
           }
         }if(book == null){
-        print("\n                   Invalid iSBM Number !..");
+        print("\n\t\t\t\t\t\t\t\t\t\tInvalid iSBM Number !..");
       }
     }else{
-      print("\n                   Invalid iSBM Number !..");
+      print("\n\t\t\t\t\t\t\t\t\t\tInvalid iSBM Number !..");
     }
     return null;
   }
@@ -170,15 +174,15 @@ class BookManagement {
     Book? book;
     book = searchByISBM();
     
-    stdout.write('\n                   Are you sure you want to delete this book? (y/n)');
+    stdout.write('\n\t\t\t\t\t\t\t\t\t\tAre you sure you want to delete this book? (y/n)');
     var option = stdin.readLineSync();
     if(option.toString() == "Y" || option.toString() == "y" && book != null){
       books.remove(book);
-      print("\n                   Customer deleted successfully");
+      print("\n\t\t\t\t\t\t\t\t\t\tCustomer deleted successfully");
     }
   }
   void updateBookStatus(){
-    stdout.write("\n                   Please enter the valid ISBN number : ");
+    stdout.write("\n\t\t\t\t\t\t\t\t\t\tPlease enter the valid ISBN number : ");
     String? iSBM = stdin.readLineSync();
 
     if(iSBM != null && iSBM != '' && isValidISBM(iSBM)){
@@ -189,12 +193,11 @@ class BookManagement {
           String isbm = value._iSBM;
           Enum status = value._status;
 
-          print("\n                   Title  : $title.");
-          print("                   Author : $author");
-          print("                   ISBM   : $isbm");
-          print("                   Status   : $status");
-          stdout.write(
-              "                    Enter Book Status(available => a / borrowed => b) : ");
+          print("\n\t\t\t\t\t\t\t\t\t\tTitle  : $title.");
+          print("\t\t\t\t\t\t\t\t\t\tAuthor : $author");
+          print("\t\t\t\t\t\t\t\t\t\tISBM   : $isbm");
+          print("\t\t\t\t\t\t\t\t\t\tStatus   : $status");
+          stdout.write("\t\t\t\t\t\t\t\t\t\tEnter Book Status(available => a / borrowed => b) : ");
           String? newStatus = stdin.readLineSync();
 
           if (newStatus == "a" || newStatus == "A") {
@@ -202,28 +205,72 @@ class BookManagement {
           } else if (newStatus == "b" || newStatus == "B") {
             value._status = Status.borrowed;
           } else {
-            print('Invalid input.Try again !...');
+            print('\t\t\t\t\t\t\t\t\t\tInvalid input.Try again !...');
           }
         } else {
-          print("\n                   Wrong iSBM Number !..");
+          print("\n\t\t\t\t\t\t\t\t\t\tWrong iSBM Number !..");
         }
       }
     }else{
-      print("\n                   Invalid iSBM Number !..");
+      print("\n\t\t\t\t\t\t\t\t\t\tInvalid iSBM Number !..");
     }
   }
 
   Book? searchByTitle(){
-    stdout.write("\n                   Please enter the valid ISBN number : ");
+    stdout.write("\n\t\t\t\t\t\t\t\t\t\tPlease enter the correct title : ");
     String? title = stdin.readLineSync();
-    for(Book value in books){
 
+    if(title != null && title != ""){
+      String upperCaseTitle = title.toUpperCase();
+      for(Book value in books){
+        if(value._title == upperCaseTitle){
+          String title = value._title;
+          String author = value._author;
+          String isbm = value._iSBM;
+          Enum status = value._status;
+
+          print("\n\t\t\t\t\t\t\t\t\t\tTitle  : $title");
+          print("\t\t\t\t\t\t\t\t\t\tAuthor : $author");
+          print("\t\t\t\t\t\t\t\t\t\tISBM   : $isbm");
+          print("\t\t\t\t\t\t\t\t\t\tStatus   : $status");
+
+          return value;
+        }
+        print('\n\t\t\t\t\t\t\t\t\t\tInvalid Title! ...');
+      }
     }
+    return null;
+  }
+  Book? searchByAuthor(){
+    stdout.write("\n\t\t\t\t\t\t\t\t\t\tPlease enter the correct author name : ");
+    String? author = stdin.readLineSync();
+
+    if(author != null && author != ""){
+      String upperCaseAuthor = author.toUpperCase();
+      for(Book value in books){
+        if(value._author == upperCaseAuthor){
+          String title = value._title;
+          String author = value._author;
+          String isbm = value._iSBM;
+          Enum status = value._status;
+
+          print("\n\t\t\t\t\t\t\t\t\t\tTitle  : $title");
+          print("\t\t\t\t\t\t\t\t\t\tAuthor : $author");
+          print("\t\t\t\t\t\t\t\t\t\tISBM   : $isbm");
+          print("\t\t\t\t\t\t\t\t\t\tStatus   : $status");
+
+          return value;
+        }
+        print('\n\t\t\t\t\t\t\t\t\t\tInvalid Author! ...');
+      }
+    }
+    return null;
+  }
+  void clearConsole() {
+    print('\x1B[2J\x1B[0;0H'); // Clears the terminal
   }
 }
-void clearConsole() {
-  print('\x1B[2J\x1B[0;0H'); // Clears the terminal
-}
+
 void main() {
   Homepage homepage = Homepage();
   homepage.printWelcomeTitle();
